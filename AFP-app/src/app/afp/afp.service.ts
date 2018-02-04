@@ -12,6 +12,12 @@ export class AfpService {
 
   constructor(private http : Http) { }
 
+  findById(id:number):Observable<User>{
+    return this.http.get(this.Url + "/" + id)
+      .map((res:Response) => res.json())
+      .catch((err:any) => Observable.throw(err.json().error || 'Error'));
+  }
+
   findAll(): Observable<User[]>  {
     return this.http.get(this.Url)
       .map((res:Response) => res.json())
@@ -23,9 +29,6 @@ export class AfpService {
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
   }
 
-    findById(id: number): Observable<User> {
-      return null;
-    }
 
     saveUser(user: User): Observable<User> {
     return this.http.post(this.Url, user)
@@ -40,7 +43,9 @@ export class AfpService {
   }
 
     updateUser(user: User): Observable<User> {
-      return this.http.put(this.Url, user).catch(err => Observable.throw(err.json().error || 'Server Error'));
+      return this.http.put(this.Url, user)
+        .map((res:Response) => res.json())
+        .catch(err => Observable.throw(err.json().error || 'Server Error'));
 
     }
 }

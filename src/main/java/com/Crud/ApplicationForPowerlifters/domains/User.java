@@ -60,6 +60,21 @@ public class User {
     @Column(name = "summary")               //Sum of benchpress,deadlift,squat multiply by wilks
     private Double summary;
 
+    public User(){}
+
+    public User(String firstName, String lastName, Double height, Integer weight, Double benchpress, Double deadlift,
+                Double squat, Double wilks, Double summary){
+                this.firstName = firstName;
+                this.lastName = lastName;
+                this.height = height;
+                this.weight = weight;
+                this.benchpress = benchpress;
+                this.deadlift = deadlift;
+                this.squat = squat;
+                this.wilks = wilks;
+                this.summary = summary;
+    }
+
     public Long getId() {
         return id;
     }
