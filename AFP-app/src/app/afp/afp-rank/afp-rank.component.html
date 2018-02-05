@@ -34,7 +34,7 @@
             <th scope="row">{{i + 1}}</th>
             <td>{{user.firstName}}</td>
             <td>{{user.lastName}}</td>
-            <td>{{user.summary}}</td>
+            <td>{{user.summary | number : '.1-2'}}</td>
           </tr>
 
           </tbody>

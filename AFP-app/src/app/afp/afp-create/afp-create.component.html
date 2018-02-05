@@ -5,53 +5,61 @@
         <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
               <label>First Name</label>
-              <input type="text"
-                     class="form-control"
-                     formControlName="firstName">
+                <input type="text"
+                       class="form-control"
+                       formControlName="firstName"
+                       onfocus="value = ''">
             </div>
 
             <div class="form-group">
               <label>Last Name</label>
               <input type="text"
                      class="form-control"
-                     formControlName="lastName">
+                     formControlName="lastName"
+                     onfocus="value = ''">
             </div>
 
 
           <div class="form-group">
             <label>Height</label>
-            <input type="number"
-                   class="form-control"
-                   formControlName="height">
+              <input type="text"
+                     class="form-control"
+                     formControlName="height"
+                     onfocus="value = ''">
           </div>
 
           <div class="form-group">
             <label>Weight</label>
-            <input type="number"
+            <input type="text"
                    class="form-control"
-                   formControlName="weight">
+                   formControlName="weight"
+                   onfocus="value = ''">
+
 
             <label>Benchpress</label>
-            <input type="number"
+            <input type="text"
                    class="form-control"
-                   formControlName="benchpress">
+                   formControlName="benchpress"
+                   onfocus="value = ''">
 
           </div>
 
           <div class="form-group">
             <label>Deadlift</label>
-            <input type="number"
+            <input type="text"
                    class="form-control"
-                   formControlName="deadlift">
+                   formControlName="deadlift"
+                   onfocus="value = ''">
           </div>
 
           <div class="form-group">
           <label>Squat</label>
-          <input type="number"
+          <input type="text"
                  class="form-control"
-                 formControlName="squat">
+                 formControlName="squat"
+                 onfocus="value = ''">
         </div>
-          <button type="submit" class="btn btn-primary" (click)="onSubmit()" >Submit</button>
+          <button type="submit" class="btn btn-primary" (click)="onSubmit()" [disabled]="!userForm.valid">Submit</button>
           <button type="button" class="btn btn-warning" (click)="redirectUserPage()">Cancel</button>
           <pre>{{userForm.value | json}}</pre>
         </form>

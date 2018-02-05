@@ -42,7 +42,7 @@ public class UserServiceImplement implements UserService{
     @Override
     public User createUser(User user) {
             user.setWilks(wilks.getListWilks().get(user.getWeight() - 50));
-            //user.setSummary((user.getBenchpress() + user.getDeadlift() + user.getSquat()) * user.getWilks());
+            user.setSummary((user.getBenchpress() + user.getDeadlift() + user.getSquat()) * user.getWilks());
             return userRepository.save(user);
     }
 
@@ -55,7 +55,6 @@ public class UserServiceImplement implements UserService{
 
     @Override
     public void deleteUser(Long id) {
-        User user;
         if(userRepository.findOne(id) != null)
        userRepository.delete(id);
     }

@@ -40,17 +40,17 @@ public class User {
     private Integer weight;
 
     @Column(name = "benchpress")
-    @Max(value = 300)
+    @Max(value = 400)
     @Min(value = 0)
     private Double benchpress;
 
     @Column(name = "deadlift")
-    @Max(value = 400)
+    @Max(value = 500)
     @Min(value = 0)
     private Double deadlift;
 
     @Column(name = "squat")
-    @Max(value = 350)
+    @Max(value = 600)
     @Min(value = 0)
     private Double squat;
 

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {AfpService} from "../afp.service";
 import {User} from "../User";
 import {Router} from "@angular/router";
-import {delay} from "q";
+
 
 @Component({
   selector: 'app-afp-list',
@@ -40,10 +40,12 @@ export class AfpListComponent implements OnInit {
   }
 
   deleteUser(user: User) {
-    if (user)
-      this.afpService.deleteUserById(user.id).subscribe();
-      setTimeout(() => this.getAllUser(),300);
-      this.router.navigate(['/user']);
+    if (user){
+      let promise = new Promise(resolve => resolve(this.afpService.deleteUserById(user.id).subscribe()));
+      promise.then( resposne =>
+        {return setTimeout(() => this.getAllUser(),50)}
+        );
+    }
   }
 
 }

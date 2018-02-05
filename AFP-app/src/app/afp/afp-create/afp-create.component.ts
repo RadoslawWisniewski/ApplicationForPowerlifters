@@ -2,7 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AfpService} from "../afp.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {User} from "../User";
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+
 
 
 @Component({
@@ -25,13 +26,40 @@ export class AfpCreateComponent implements OnInit, OnDestroy{
   ngOnInit() {
     this.update = this.route.params.subscribe(params => this.id = params['id']);
     this.userForm = new FormGroup({
-      firstName: new FormControl(''),
-      lastName: new FormControl(''),
-      height : new FormControl(''),
-      weight : new FormControl(''),
-      benchpress : new FormControl(''),
-      deadlift : new FormControl(''),
-      squat : new FormControl('')
+      firstName: new FormControl('Imię może zawierać tylko litery(bez polskich znaków)', [
+        Validators.required,
+        Validators.pattern("[a-zA-z]+")
+        ]
+      ),
+      lastName: new FormControl('Nazwisko może zawierać tylko litery(bez polskich znaków)',[
+        Validators.required,
+        Validators.pattern("[a-zA-z]+")
+      ]),
+      height : new FormControl('Wysokość podawana w [cm]. Zakres od 0-250',[
+        Validators.required,
+        Validators.min(0),
+        Validators.max(250)
+      ]),
+      weight : new FormControl('Waga podawana w [kg]. Zakres od 50-120',[
+        Validators.required,
+        Validators.min(50),
+        Validators.max(120)
+      ]),
+      benchpress : new FormControl('Wynik podawany w [kg]. Zakres do 0-400',[
+        Validators.required,
+        Validators.min(0),
+        Validators.max(400)
+      ]),
+      deadlift : new FormControl('Wynik podawany w [kg]. Zakres od 0-500',[
+        Validators.required,
+        Validators.min(0),
+        Validators.max(500)
+      ]),
+      squat : new FormControl('Wynik podawany w [kg]. Zakres od 0-600',[
+        Validators.required,
+        Validators.min(0),
+        Validators.max(600)
+      ])
   });
 
     if(this.id){
@@ -67,7 +95,9 @@ export class AfpCreateComponent implements OnInit, OnDestroy{
         this.userForm.controls['squat'].value,
         null,
         null);
-      this.afpService.updateUser(user).subscribe();
+      let promise = new Promise(resolve => resolve(this.afpService.updateUser(user).subscribe()));
+      promise.then(response =>
+      { return setTimeout(this.router.navigate(['/user']),100)})
     }else {
       let user: User = new User(null,
         this.userForm.controls['firstName'].value,
@@ -79,10 +109,12 @@ export class AfpCreateComponent implements OnInit, OnDestroy{
         this.userForm.controls['squat'].value,
         null,
         null);
-      this.afpService.saveUser(user).subscribe();
+      let promise = new Promise(resolve => resolve(this.afpService.saveUser(user).subscribe()));
+      promise.then(resposne =>
+        {return setTimeout(this.router.navigate(['/user']),100)}
+      );
     }
       this.userForm.reset();
-      setTimeout(() => this.router.navigate(['/user']),500);
   }
 
   redirectUserPage() {
